@@ -1,0 +1,1892 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{01-Titanic}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{the-titanic-data-set}{%
+\section{The Titanic Data Set}\label{the-titanic-data-set}}
+
+Next, we will use one of the most famous data sets to begin to learn
+about exploratory data analysis and visualization. First, we define the
+task in terms of a well-defined problem statement.
+
+    ** Domain** This is an introductory data set considered the ``hello
+world'' of data science. It is an ongoing competition on Kaggle allowing
+students of data science to prepare a model and make a submission to a
+competition while they are still learning the subject.
+
+\textbf{Problem} This is a binary classification problem in which the
+challenge is to predict whether a passenger survived the sinking of the
+Titanic given the demographic data of the passengers. Here, the task
+\(T\) is a binary classification and the experience \(E\) is the list of
+passengers and their survival outcome.
+
+\textbf{Solution} To solve this problem, we will generate a vector of
+integers using filtering and masking.
+
+\textbf{Data} The following analysis shows:
+
+\begin{itemize}
+\item
+  there are 891 rows and 10 useful variable columns in the dataset. One
+  of these columns is the target \texttt{Survived}. An 11th and 12th
+  column are a unique id for each passenger and the name of each
+  passenger, respectively, and have no predictive power.
+\item
+  there are four integer value columns:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{Survived}
+  \item
+    \texttt{Pclass}
+  \item
+    \texttt{SibSp}
+  \item
+    \texttt{Parch}
+  \end{itemize}
+\item
+  there are two numerical value columns:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{Age}
+  \item
+    \texttt{Fare}
+  \end{itemize}
+\item
+  there are five factor columns:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{Sex}
+  \item
+    \texttt{Ticket}
+  \item
+    \texttt{Cabin}
+  \item
+    \texttt{Embarked}
+  \end{itemize}
+\item
+  The following are the summary statistics of the data:
+
+\begin{verbatim}
+   Survived     Pclass      Sex         Age          SibSp      Parch           Fare         
+ Min. :0.0000 Min. :1.000 female:314 Min. : 0.42 Min. :0.000 Min. :0.0000 Min. :  0.00 
+ Mean :0.3838 Mean :2.309 male  :577 Mean :29.70 Mean :0.523 Mean :0.3816 Mean : 32.20 
+ Max. :1.0000 Max. :3.000            Max. :80.00 Max. :8.000 Max. :6.0000 Max. :512.33 
+                                     NA's   :177  
+\end{verbatim}
+\end{itemize}
+
+\textbf{Benchmark} We will use a naive guess based on the most common
+class as a benchmark. 61.6\% of passengers did not survive. We will
+guess for our benchmark that there were no survivors.
+
+\textbf{Metrics} As this is an beginning exercise, we will use the
+accuracy.
+
+    \hypertarget{measuring-accuracy}{%
+\subsection{Measuring Accuracy}\label{measuring-accuracy}}
+
+We have written two functions here to help us to measure the accuracy of
+a prediction vector. The first function is called
+\texttt{verify\_length}. It takes two vectors and compares their length
+to make sure that they have the same length. This function is used in
+the second function as a preliminary check. If a prediction vector does
+not have the same length as a vector of actual values then there is a
+deeper problem that must be dealt with.
+
+The second function is the \texttt{accuracy} function. This function
+takes two vectors: 1) a vector of actual values and 2) a vector of
+predicted values and compares them. It assigns a value of true to each
+value that the prediction gets correct. Finally, all of the true values
+are counted and this is divided by the length of the vector of actual
+values.
+
+    \hypertarget{define-accuracy-metric}{%
+\subparagraph{define accuracy metric}\label{define-accuracy-metric}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} verify\PYZus{}length \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kr}{function} \PY{p}{(}v1\PY{p}{,} v2 \PY{p}{)}\PY{p}{\PYZob{}}
+            \PY{k+kr}{if} \PY{p}{(}\PY{k+kp}{length}\PY{p}{(}v1\PY{p}{)} \PY{o}{!=} \PY{k+kp}{length}\PY{p}{(}v2\PY{p}{)}\PY{p}{)} \PY{p}{\PYZob{}}
+                \PY{k+kp}{stop}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{length of vectors do not match\PYZsq{}}\PY{p}{)} 
+            \PY{p}{\PYZcb{}}
+        \PY{p}{\PYZcb{}}
+        
+        accuracy \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kr}{function} \PY{p}{(}actual\PY{p}{,} predicted\PY{p}{)} \PY{p}{\PYZob{}}
+            verify\PYZus{}length\PY{p}{(}actual\PY{p}{,} predicted\PY{p}{)}
+            \PY{k+kr}{return}\PY{p}{(}\PY{k+kp}{sum}\PY{p}{(}actual \PY{o}{==} predicted\PY{p}{)}\PY{o}{/}\PY{k+kp}{length}\PY{p}{(}actual\PY{p}{)}\PY{p}{)}
+        \PY{p}{\PYZcb{}}
+\end{Verbatim}
+
+
+    For example we might have the following vector of the actual values:
+
+    \hypertarget{a-simple-vector-of-actual-values}{%
+\subparagraph{a simple vector of actual
+values}\label{a-simple-vector-of-actual-values}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} actual \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}\PY{l+m}{1}\PY{p}{,}\PY{l+m}{1}\PY{p}{,}\PY{l+m}{0}\PY{p}{,}\PY{l+m}{0}\PY{p}{,}\PY{l+m}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    Our model might generate the following vector of predicted values:
+
+    \hypertarget{a-simple-vector-of-predictions}{%
+\subparagraph{a simple vector of
+predictions}\label{a-simple-vector-of-predictions}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} predicted \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}\PY{l+m}{1}\PY{p}{,}\PY{l+m}{1}\PY{p}{,}\PY{l+m}{1}\PY{p}{,}\PY{l+m}{0}\PY{p}{,}\PY{l+m}{0}\PY{p}{)}
+\end{Verbatim}
+
+
+    For this simple result, we can look at it and tell that the predictions
+get 3 right and 2 wrong for an accuracy of 0.6.
+
+    \hypertarget{assess-accuracy-of-predictions}{%
+\subparagraph{assess accuracy of
+predictions}\label{assess-accuracy-of-predictions}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} accuracy\PY{p}{(}actual\PY{p}{,} predicted\PY{p}{)}
+\end{Verbatim}
+
+
+    0.6
+
+    
+    \hypertarget{preliminary-analysis}{%
+\subsection{Preliminary Analysis}\label{preliminary-analysis}}
+
+We will start with some preliminary analysis on our data set.
+
+    \hypertarget{load-the-dataset-using-r}{%
+\subsubsection{Load the dataset using
+R}\label{load-the-dataset-using-r}}
+
+First, we love the data set using the R function \texttt{read.csv} and
+assign it to the variable \texttt{titanic}. Note that the
+\texttt{read.table} and \texttt{read.csv} in R are equivalent accept for
+the default args. \texttt{read.table} defaults to separating on white
+space. \texttt{read.csv} defaults to separating on commas.
+\texttt{read.csv} also defaults to the argument \texttt{header=T}.
+
+    \hypertarget{load-the-dataset-using-read.csv}{%
+\subparagraph{\texorpdfstring{load the dataset using
+\texttt{read.csv()}}{load the dataset using read.csv()}}\label{load-the-dataset-using-read.csv}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} titanic \PY{o}{\PYZlt{}\PYZhy{}} read.csv\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{train.csv\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{k+kp}{stopifnot}\PY{p}{(}\PY{k+kp}{dim}\PY{p}{(}titanic\PY{p}{)} \PY{o}{==} \PY{k+kt}{c}\PY{p}{(}\PY{l+m}{891}\PY{p}{,}\PY{l+m}{12}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    We displayed the dimension \texttt{dim()} and the structure
+\texttt{str()} of our datafrane. This is mostly done as a sanity check.
+We should have some idea of what the dimension and structure of our data
+is. By displaying these results immediately after loading the data, we
+can verify that the data has been loaded as we expect.
+
+    \hypertarget{display-the-dimension-of-the-data-set}{%
+\subparagraph{display the dimension of the data
+set}\label{display-the-dimension-of-the-data-set}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{k+kp}{dim}\PY{p}{(}titanic\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{enumerate*}
+\item 891
+\item 12
+\end{enumerate*}
+
+
+    
+    \hypertarget{display-the-structure-of-the-dataframe}{%
+\subparagraph{display the structure of the
+dataframe}\label{display-the-structure-of-the-dataframe}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} str\PY{p}{(}titanic\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+'data.frame':	891 obs. of  12 variables:
+ \$ PassengerId: int  1 2 3 4 5 6 7 8 9 10 {\ldots}
+ \$ Survived   : int  0 1 1 1 0 0 0 0 1 1 {\ldots}
+ \$ Pclass     : int  3 1 3 1 3 3 1 3 3 2 {\ldots}
+ \$ Name       : Factor w/ 891 levels "Abbing, Mr. Anthony",..: 109 191 358 277 16 559 520 629 417 581 {\ldots}
+ \$ Sex        : Factor w/ 2 levels "female","male": 2 1 1 1 2 2 2 2 1 1 {\ldots}
+ \$ Age        : num  22 38 26 35 35 NA 54 2 27 14 {\ldots}
+ \$ SibSp      : int  1 1 0 1 0 0 0 3 0 1 {\ldots}
+ \$ Parch      : int  0 0 0 0 0 0 0 1 2 0 {\ldots}
+ \$ Ticket     : Factor w/ 681 levels "110152","110413",..: 524 597 670 50 473 276 86 396 345 133 {\ldots}
+ \$ Fare       : num  7.25 71.28 7.92 53.1 8.05 {\ldots}
+ \$ Cabin      : Factor w/ 148 levels "","A10","A14",..: 1 83 1 57 1 1 131 1 1 1 {\ldots}
+ \$ Embarked   : Factor w/ 4 levels "","C","Q","S": 4 2 4 4 4 3 4 4 4 2 {\ldots}
+
+    \end{Verbatim}
+
+    \hypertarget{the-r-structure-object}{%
+\subsubsection{\texorpdfstring{The \texttt{R} Structure
+Object}{The R Structure Object}}\label{the-r-structure-object}}
+
+    I interpret the structure of our data frame in the following way. Each
+row in the structure object, \texttt{str(titanic)} represents a column
+in the data frame \texttt{titanic}. The value immediately following the
+\texttt{\$} is the name of that column. The value immediately following
+the \texttt{:} is the data type of that column. The values following the
+datatype are the first few values of the data in the column itself.
+
+    Note that R has made some default decisions about the structure of our
+data. It has designated five columns as integer columns, five columns as
+factor columns, and two columns as numerical problems. These may or may
+not be accurate according to our own understanding of the data. This was
+done by R, doing its best to intuit the structure of the data during the
+read of the CSV file. For example, a reasonable case could be made that
+the the \texttt{Survived} column should not be an integer, nor should
+the \texttt{Pclass}.
+
+    \hypertarget{categorical-features-in-r}{%
+\paragraph{Categorical Features In R}\label{categorical-features-in-r}}
+
+R stores categorical features using a special type of vector called a
+\textbf{factor}. The data is stored as a vector of integers. The factor
+has an additional attribute, however. It also has a vector of levels.
+The integer stored as data are actually references to the vector of
+names. We can think of the data stored in the Factor as a mapping to the
+vector of levels.
+
+    \hypertarget{display-that-class-of-the-titanicembarked-column}{%
+\subparagraph{\texorpdfstring{display that class of the
+\texttt{titanic\$embarked}
+column}{display that class of the titanic\$embarked column}}\label{display-that-class-of-the-titanicembarked-column}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{k+kp}{class}\PY{p}{(}titanic\PY{o}{\PYZdl{}}Embarked\PY{p}{)}
+\end{Verbatim}
+
+
+    'factor'
+
+    
+    \hypertarget{display-that-levels-of-the-titanicembarked-column}{%
+\subparagraph{\texorpdfstring{display that levels of the
+\texttt{titanic\$embarked}
+column}{display that levels of the titanic\$embarked column}}\label{display-that-levels-of-the-titanicembarked-column}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{k+kp}{levels}\PY{p}{(}titanic\PY{o}{\PYZdl{}}Embarked\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{enumerate*}
+\item ''
+\item 'C'
+\item 'Q'
+\item 'S'
+\end{enumerate*}
+
+
+    
+    \hypertarget{display-that-first-few-values-of-the-titanicembarked-column}{%
+\subparagraph{\texorpdfstring{display that first few values of the
+\texttt{titanic\$embarked}
+column}{display that first few values of the titanic\$embarked column}}\label{display-that-first-few-values-of-the-titanicembarked-column}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} titanic\PY{o}{\PYZdl{}}Embarked\PY{p}{[}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{5}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{enumerate*}
+\item S
+\item C
+\item S
+\item S
+\item S
+\end{enumerate*}
+
+
+    
+    \hypertarget{completely-unique-columns}{%
+\subsubsection{Completely Unique
+Columns}\label{completely-unique-columns}}
+
+We can see from the structure of our data frame that it contains two
+columns that are completely unique. We are attempting to use the
+patterns in our data to make predictions about the survival of
+passengers during the Titanic disaster. This is done by identifying
+patterns in the data. If they column is completely unique there is no
+pattern to be identified there. Each passenger has its own unique value
+and there is really no immediate way to associate these unique values
+with each other. For this reason we will simply remove the completely
+unique columns. Prior to doing this, however, we should verify that they
+are in fact completely.
+
+    The two columns in question are \texttt{PassengerId} and \texttt{Name}.
+We will use the following method to establish that they are both
+completely unique:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  We will take a measure of the number of passengers in the data set
+\item
+  We will take a measure of the number of unique values in each of the
+  columns in question
+\item
+  If the values match we will consider the column safe for removal
+\end{enumerate}
+
+    \hypertarget{store-the-number-of-passengers}{%
+\subparagraph{store the number of
+passengers}\label{store-the-number-of-passengers}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} number\PYZus{}of\PYZus{}passengers \PY{o}{=} \PY{k+kp}{length}\PY{p}{(}titanic\PY{o}{\PYZdl{}}PassengerId\PY{p}{)}
+         number\PYZus{}of\PYZus{}passengers
+\end{Verbatim}
+
+
+    891
+
+    
+    \hypertarget{display-the-length-of-the-unique-values-in-titanicpassengerid-and-titanicname}{%
+\subparagraph{\texorpdfstring{display the length of the unique values in
+\texttt{titanic\$passengerid} and
+\texttt{titanic\$name}}{display the length of the unique values in titanic\$passengerid and titanic\$name}}\label{display-the-length-of-the-unique-values-in-titanicpassengerid-and-titanicname}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{k+kp}{length}\PY{p}{(}\PY{k+kp}{unique}\PY{p}{(}titanic\PY{o}{\PYZdl{}}PassengerId\PY{p}{)}\PY{p}{)}\PY{p}{;} \PY{k+kp}{length}\PY{p}{(}\PY{k+kp}{unique}\PY{p}{(}titanic\PY{o}{\PYZdl{}}Name\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    891
+
+    
+    891
+
+    
+    We note that the values do indeed match, therefore, it is safe to drop
+both of these columns from our dataframe. This can be done by assigning
+the \texttt{NULL} value to the named column. For example, we might do
+the following on a generic data frame and column
+
+\begin{verbatim}
+dataframe$mycolumn = NULL
+\end{verbatim}
+
+    \hypertarget{drop-the-columns-with-completely-unique-values}{%
+\subparagraph{drop the columns with completely unique
+values}\label{drop-the-columns-with-completely-unique-values}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} titanic\PY{o}{\PYZdl{}}PassengerId \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kc}{NULL}
+         titanic\PY{o}{\PYZdl{}}Name \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kc}{NULL}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{k+kp}{stopifnot}\PY{p}{(}\PY{k+kp}{is.null}\PY{p}{(}titanic\PY{o}{\PYZdl{}}PassengerID\PY{p}{)}\PY{p}{)}
+         \PY{k+kp}{stopifnot}\PY{p}{(}\PY{k+kp}{is.null}\PY{p}{(}titanic\PY{o}{\PYZdl{}}Name\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{summarize-the-data}{%
+\subsubsection{Summarize The Data}\label{summarize-the-data}}
+
+Finally, having dropped the features deemed not immediately useful, we
+display the summary statistics of the dataframe using the
+\texttt{summary()} function. This function shows the quartile values of
+the data as well as mean and median for numerical features and the
+counts to the best of its ability for the factors.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{k+kp}{summary}\PY{p}{(}titanic\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+    Survived          Pclass          Sex           Age            SibSp      
+ Min.   :0.0000   Min.   :1.000   female:314   Min.   : 0.42   Min.   :0.000  
+ 1st Qu.:0.0000   1st Qu.:2.000   male  :577   1st Qu.:20.12   1st Qu.:0.000  
+ Median :0.0000   Median :3.000                Median :28.00   Median :0.000  
+ Mean   :0.3838   Mean   :2.309                Mean   :29.70   Mean   :0.523  
+ 3rd Qu.:1.0000   3rd Qu.:3.000                3rd Qu.:38.00   3rd Qu.:1.000  
+ Max.   :1.0000   Max.   :3.000                Max.   :80.00   Max.   :8.000  
+                                               NA's   :177                    
+     Parch             Ticket         Fare                Cabin     Embarked
+ Min.   :0.0000   1601    :  7   Min.   :  0.00              :687    :  2   
+ 1st Qu.:0.0000   347082  :  7   1st Qu.:  7.91   B96 B98    :  4   C:168   
+ Median :0.0000   CA. 2343:  7   Median : 14.45   C23 C25 C27:  4   Q: 77   
+ Mean   :0.3816   3101295 :  6   Mean   : 32.20   G6         :  4   S:644   
+ 3rd Qu.:0.0000   347088  :  6   3rd Qu.: 31.00   C22 C26    :  3           
+ Max.   :6.0000   CA 2144 :  6   Max.   :512.33   D          :  3           
+                  (Other) :852                    (Other)    :186           
+    \end{verbatim}
+
+    
+    \hypertarget{preparing-a-benchmark-model}{%
+\subsection{Preparing A Benchmark
+Model}\label{preparing-a-benchmark-model}}
+
+Having performed a preliminary analysis of the data, we move onto
+preparing a benchmark model. First, we will do some analysis of the
+target column. Based upon this analysis we will think about what the
+best model for a benchmark might be.
+
+We will make use of the R \texttt{table()} function to study the target
+column. This function builds a contingency table of the counts
+combinations of factor levels. Of course if only a Single column is
+passed to the function, it will just return a simple count.
+
+    \hypertarget{display-a-contingency-table-of-titanicsurvived}{%
+\subparagraph{\texorpdfstring{display a contingency table of
+\texttt{titanic\$survived}}{display a contingency table of titanic\$survived}}\label{display-a-contingency-table-of-titanicsurvived}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{k+kp}{table}\PY{p}{(}titanic\PY{o}{\PYZdl{}}Survived\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+
+  0   1 
+549 342 
+    \end{verbatim}
+
+    
+    From the result returns, we can see that the survival status is stored
+As either is 0, corresponding to did not survive, or a 1 corresponding
+to survived. We can use the helper function \texttt{prop.table()} to
+express the results a contingency table as fractions. Here, we can see
+that \(0.\bar{61}\) Of the passengers did not survive. One thing we
+should immediately take note of is that our target column is not evenly
+distributed. An \textbf{evenly distributed} target column would have the
+exact same number of each possible outcome. As we grow in our data
+science practice we will learn more about dealing with an evenly
+distributed target. For now it is sufficient to simply take note of this
+fact.
+
+    \hypertarget{display-a-proportion-table-of-titanicsurvived}{%
+\subparagraph{\texorpdfstring{display a proportion table of
+\texttt{titanic\$survived}}{display a proportion table of titanic\$survived}}\label{display-a-proportion-table-of-titanicsurvived}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{k+kp}{prop.table}\PY{p}{(}\PY{k+kp}{table}\PY{p}{(}titanic\PY{o}{\PYZdl{}}Survived\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+
+        0         1 
+0.6161616 0.3838384 
+    \end{verbatim}
+
+    
+    Below, we use a histogram to show once more that the target is not
+evenly distributed. By default, the \texttt{hist()} function simply
+shows the counts for each measured value.
+
+    \hypertarget{display-a-histogram-of-titanicsurvived}{%
+\subparagraph{\texorpdfstring{display a histogram of
+\texttt{titanic\$Survived}}{display a histogram of titanic\$Survived}}\label{display-a-histogram-of-titanicsurvived}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{k+kn}{library}\PY{p}{(}repr\PY{p}{)}
+         \PY{k+kp}{options}\PY{p}{(}repr.plot.width\PY{o}{=}\PY{l+m}{10}\PY{p}{,} repr.plot.height\PY{o}{=}\PY{l+m}{4}\PY{p}{)}
+         
+         hist\PY{p}{(}titanic\PY{o}{\PYZdl{}}Survived\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_54_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{a-nauxefve-guess}{%
+\subsubsection{A Naïve Guess}\label{a-nauxefve-guess}}
+
+We will use a naive guess based on the most common class as a benchmark.
+61.6\% of passengers did not survive. We will guess for our benchmark
+that there were no survivors. Note that we have done very little work
+and already have a better then 50-50 chance I've getting a correct
+answer simply by guessing that no one survived. This is one
+consideration for having an unevenly distributed target. Simply
+measuring accuracy may not give us a realistic sense of how well our
+model is doing. This is one reason why preparing a benchmark is so
+important. Had we not prepared at benchmark we might think that a 55\%
+accuracy is deceny because it's better than the simple 50-50. This
+benchmark gives us a sense of what we need to do better than in order to
+prepare a model that adds value to the situation.
+
+    \hypertarget{create-a-vector-called-no_survivors-that-is-a-list-of-predictions-that-no-one-survived.}{%
+\subparagraph{\texorpdfstring{Create a vector called
+\texttt{no\_survivors} that is a list of predictions that no one
+survived.}{Create a vector called no\_survivors that is a list of predictions that no one survived.}}\label{create-a-vector-called-no_survivors-that-is-a-list-of-predictions-that-no-one-survived.}}
+
+To create such a vector using R, we will use the replicate
+\texttt{rep()} function. This function takes a value and replicates it a
+given number of times.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} no\PYZus{}survivors \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{rep}\PY{p}{(}\PY{l+m}{0}\PY{p}{,} number\PYZus{}of\PYZus{}passengers\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{c+c1}{\PYZsh{} HIDDEN TEST}
+\end{Verbatim}
+
+
+    Once we have prepared this naïve guess, we can use the \texttt{accuracy}
+function we defined earlier to assess our benchmark as a vector of
+predictions.
+
+    \hypertarget{accuracy-of-our-nauxefve-prediction}{%
+\subparagraph{accuracy of our naïve
+prediction}\label{accuracy-of-our-nauxefve-prediction}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} accuracy\PY{p}{(}titanic\PY{o}{\PYZdl{}}Survived\PY{p}{,} no\PYZus{}survivors\PY{p}{)}
+\end{Verbatim}
+
+
+    0.616161616161616
+
+    
+    As expected, we achieve an accuracy of \(0.\bar{61}\).
+
+    \hypertarget{a-vectorized-solution-to-fizzbuzz}{%
+\subsection{\texorpdfstring{A Vectorized Solution To
+\texttt{fizzbuzz}}{A Vectorized Solution To fizzbuzz}}\label{a-vectorized-solution-to-fizzbuzz}}
+
+\texttt{fizzbuzz} is a canonical ``coding interview'' problem. You might
+want to read this humorous take by Joel Grus who attempts to use tensor
+for to solve the problem:
+http://joelgrus.com/2016/05/23/fizz-buzz-in-tensorflow/. The challenge
+is to iterate over the numbers from 1 to 100, printing ``fizz'' if the
+number is divisible by 3, ``buzz'' if the number is divisible by 5,
+``fizzbuzz'' if the number is divisible by 15, and the number itself
+otherwise. Typically this problem is solved using for-loops and if-else
+statements and is used as a basic assessment of programming ability.
+Such a solution might look like this
+
+    \hypertarget{a-first-attempt-at-fizzbuzz}{%
+\subparagraph{\texorpdfstring{a first attempt at
+\texttt{fizzbuzz}}{a first attempt at fizzbuzz}}\label{a-first-attempt-at-fizzbuzz}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} fizzbuzz \PY{o}{=} \PY{k+kr}{function} \PY{p}{(}n\PY{p}{)} \PY{p}{\PYZob{}}
+             \PY{k+kr}{for} \PY{p}{(}i \PY{k+kr}{in} \PY{l+m}{1}\PY{o}{:}n\PY{p}{)} \PY{p}{\PYZob{}}
+                 \PY{k+kr}{if} \PY{p}{(}i \PY{o}{\PYZpc{}\PYZpc{}} \PY{l+m}{15} \PY{o}{==} \PY{l+m}{0}\PY{p}{)} \PY{k+kp}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{fizzbuzz\PYZdq{}}\PY{p}{)}
+                 \PY{k+kr}{else} \PY{k+kr}{if} \PY{p}{(}i \PY{o}{\PYZpc{}\PYZpc{}} \PY{l+m}{3} \PY{o}{==} \PY{l+m}{0}\PY{p}{)} \PY{k+kp}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{fizz\PYZdq{}}\PY{p}{)}
+                 \PY{k+kr}{else} \PY{k+kr}{if} \PY{p}{(}i \PY{o}{\PYZpc{}\PYZpc{}} \PY{l+m}{5} \PY{o}{==} \PY{l+m}{0}\PY{p}{)} \PY{k+kp}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{buzz\PYZdq{}}\PY{p}{)}
+                 \PY{k+kr}{else} \PY{k+kp}{print}\PY{p}{(}i\PY{p}{)}
+             \PY{p}{\PYZcb{}}
+         \PY{p}{\PYZcb{}}
+         fizzbuzz\PY{p}{(}\PY{l+m}{15}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[1] 1
+[1] 2
+[1] "fizz"
+[1] 4
+[1] "buzz"
+[1] "fizz"
+[1] 7
+[1] 8
+[1] "fizz"
+[1] "buzz"
+[1] 11
+[1] "fizz"
+[1] 13
+[1] 14
+[1] "fizzbuzz"
+
+    \end{Verbatim}
+
+    It may be a bit much to come up with a solution to this problem using
+tensorflow. It is, however, very useful to think about solving this
+problem using masks and filters. Suppose we begin with a simple solution
+vector as follows
+
+    \hypertarget{start-the-solution-vector}{%
+\subparagraph{\texorpdfstring{start the \texttt{solution}
+vector}{start the solution vector}}\label{start-the-solution-vector}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} solution \PY{o}{=} \PY{l+m}{1}\PY{o}{:}\PY{l+m}{15}
+         solution
+\end{Verbatim}
+
+
+    \begin{enumerate*}
+\item 1
+\item 2
+\item 3
+\item 4
+\item 5
+\item 6
+\item 7
+\item 8
+\item 9
+\item 10
+\item 11
+\item 12
+\item 13
+\item 14
+\item 15
+\end{enumerate*}
+
+
+    
+    The challenge is to replace the values we don't need with the correct
+strings. Sure we can iterate over this list check the value to see if
+it's divisible by three or five but using a vectorized solution we can
+do it all at once.
+
+    The Steps to doing this are as follows:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Create a mask for a certain condition we might wish to check
+\item
+  Use that mask to restrict the values of the original \texttt{solution}
+  we are looking at
+\item
+  Replace to values of the restricted vector with the appropriate string
+\end{enumerate}
+
+    First, we create a mask called \texttt{mod15\_mask}. Note, that when we
+display it there is only a single \texttt{TRUE} value, in the position
+where the value is divisible by 15 (and in this case is actually 15).
+
+    \hypertarget{create-the-mod-15-mask}{%
+\subparagraph{create the mod 15 mask}\label{create-the-mod-15-mask}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} mod15\PYZus{}mask \PY{o}{=} \PY{p}{(}solution \PY{o}{\PYZpc{}\PYZpc{}} \PY{l+m}{15} \PY{o}{==} \PY{l+m}{0}\PY{p}{)}
+         mod15\PYZus{}mask
+\end{Verbatim}
+
+
+    \begin{enumerate*}
+\item FALSE
+\item FALSE
+\item FALSE
+\item FALSE
+\item FALSE
+\item FALSE
+\item FALSE
+\item FALSE
+\item FALSE
+\item FALSE
+\item FALSE
+\item FALSE
+\item FALSE
+\item FALSE
+\item TRUE
+\end{enumerate*}
+
+
+    
+    Next, we filter the \texttt{solution} using the \texttt{mod15\_mask}.
+
+    \hypertarget{filter-solution-using-the-mind-15-mask}{%
+\subparagraph{\texorpdfstring{filter \texttt{solution} using the mind 15
+mask}{filter solution using the mind 15 mask}}\label{filter-solution-using-the-mind-15-mask}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} solution\PY{p}{[}mod15\PYZus{}mask\PY{p}{]}
+\end{Verbatim}
+
+
+    15
+
+    
+    Finally, we assign the filtered values the string \texttt{"fizzbuzz"}
+
+    \hypertarget{assign-valued-to-the-filtered-solution-vector}{%
+\subparagraph{\texorpdfstring{assign valued to the filtered
+\texttt{solution}
+vector}{assign valued to the filtered solution vector}}\label{assign-valued-to-the-filtered-solution-vector}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} solution\PY{p}{[}mod15\PYZus{}mask\PY{p}{]} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{fizzbuzz\PYZdq{}}
+\end{Verbatim}
+
+
+    Let's have a look at the current value of our solution.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} solution
+\end{Verbatim}
+
+
+    \begin{enumerate*}
+\item '1'
+\item '2'
+\item '3'
+\item '4'
+\item '5'
+\item '6'
+\item '7'
+\item '8'
+\item '9'
+\item '10'
+\item '11'
+\item '12'
+\item '13'
+\item '14'
+\item 'fizzbuzz'
+\end{enumerate*}
+
+
+    
+    We can repeat this technique to build an entire solution to the problem.
+
+    \hypertarget{a-vectorized-fizzbuzz}{%
+\subparagraph{\texorpdfstring{a vectorized
+\texttt{fizzbuzz}}{a vectorized fizzbuzz}}\label{a-vectorized-fizzbuzz}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} fizzbuzz \PY{o}{=} \PY{k+kr}{function} \PY{p}{(}n\PY{p}{)} \PY{p}{\PYZob{}}
+             solution \PY{o}{=} \PY{l+m}{1}\PY{o}{:}n
+             mod3\PYZus{}mask \PY{o}{=} \PY{p}{(}solution \PY{o}{\PYZpc{}\PYZpc{}} \PY{l+m}{3} \PY{o}{==} \PY{l+m}{0}\PY{p}{)}
+             mod5\PYZus{}mask \PY{o}{=} \PY{p}{(}solution \PY{o}{\PYZpc{}\PYZpc{}} \PY{l+m}{5} \PY{o}{==} \PY{l+m}{0}\PY{p}{)}
+             mod15\PYZus{}mask \PY{o}{=} \PY{p}{(}solution \PY{o}{\PYZpc{}\PYZpc{}} \PY{l+m}{15} \PY{o}{==} \PY{l+m}{0}\PY{p}{)}
+             
+             solution\PY{p}{[}mod3\PYZus{}mask\PY{p}{]} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{fizz\PYZdq{}}
+             solution\PY{p}{[}mod5\PYZus{}mask\PY{p}{]} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{buzz\PYZdq{}}
+             solution\PY{p}{[}mod15\PYZus{}mask\PY{p}{]} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{fizzbuzz\PYZdq{}}
+             
+             \PY{k+kp}{cat}\PY{p}{(}solution\PY{p}{,}sep\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZbs{}n\PYZdq{}}\PY{p}{)}
+         \PY{p}{\PYZcb{}}
+         
+         fizzbuzz\PY{p}{(}\PY{l+m}{15}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+1
+2
+fizz
+4
+buzz
+fizz
+7
+8
+fizz
+buzz
+11
+fizz
+13
+14
+fizzbuzz
+
+    \end{Verbatim}
+
+    In terms of the why of doing a vectorized approach, there are tremendous
+speed gains to be had implementing your algorithms using vectors rather
+than loops. To read more about this, have a look at this blog post:
+http://www.noamross.net/blog/2014/4/16/vectorization-in-r--why.html
+
+    \hypertarget{incremental-model-improvement-with-filters-and-masks}{%
+\subsection{Incremental Model Improvement With Filters And
+Masks}\label{incremental-model-improvement-with-filters-and-masks}}
+
+    And now begins the work of data scientist. We have established a
+benchmark model. We should now begin to refine upon this model seeking
+to continually improve the benchmark performance that we have. We can do
+this by using exploratory data analysis to study the features,
+especially as they relate to the target. If we find a feature that we
+believe exhibits some pattern of correspondence to our target we can use
+this to refine our model.
+
+    For this project, we are going to think of our model as simply the
+values stored in a vector of predictions. For example, we already have
+one model, a model called \texttt{no\_survivors}, which is simply a
+vector of zeros. To improve upon this model we will use a mask to reduce
+the number of values we are looking at and then replace these values
+with a 1.
+
+    \hypertarget{randomized-model-improvement}{%
+\subsubsection{Randomized Model
+Improvement}\label{randomized-model-improvement}}
+
+What if we try to improve our model by simply randomly replacing zeros
+with one? We can do this using the \texttt{sample()} function
+
+    \hypertarget{create-a-random-mask}{%
+\subparagraph{create a random mask}\label{create-a-random-mask}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} random\PYZus{}mask \PY{o}{=} \PY{k+kp}{sample}\PY{p}{(}\PY{k+kt}{c}\PY{p}{(}\PY{k+kc}{TRUE}\PY{p}{,}\PY{k+kc}{FALSE}\PY{p}{)}\PY{p}{,} number\PYZus{}of\PYZus{}passengers\PY{p}{,} replace \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{)}
+         random\PYZus{}mask\PY{p}{[}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{10}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{enumerate*}
+\item FALSE
+\item FALSE
+\item FALSE
+\item TRUE
+\item TRUE
+\item TRUE
+\item FALSE
+\item FALSE
+\item FALSE
+\item TRUE
+\end{enumerate*}
+
+
+    
+    \hypertarget{duplicate-and-filter-to-create-random-model}{%
+\subparagraph{duplicate and filter to create random
+model}\label{duplicate-and-filter-to-create-random-model}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} random\PYZus{}model \PY{o}{=} \PY{k+kp}{rep}\PY{p}{(}no\PYZus{}survivors\PY{p}{)}
+         random\PYZus{}model\PY{p}{[}random\PYZus{}mask\PY{p}{]} \PY{o}{=} \PY{l+m}{1}
+\end{Verbatim}
+
+
+    \hypertarget{assess-accuracy-of-random-model}{%
+\subparagraph{assess accuracy of random
+model}\label{assess-accuracy-of-random-model}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} accuracy\PY{p}{(}titanic\PY{o}{\PYZdl{}}Survived\PY{p}{,} random\PYZus{}model\PY{p}{)}
+\end{Verbatim}
+
+
+    0.496071829405163
+
+    
+    As suspected, simply guessing is not better than guessing all zeros. It
+looks like we might actually justify our exorbitant salaries after all.
+
+    \hypertarget{use-proportion-tables-to-look-at-survival-by-feature}{%
+\subsubsection{Use Proportion Tables To Look At Survival By
+Feature}\label{use-proportion-tables-to-look-at-survival-by-feature}}
+
+    Previously, we use a proportion table to look at a single feature,
+\texttt{Survived}. Next, We will use a proportion table to look at how
+two features interact with each other. Let's look at the structure of
+the dataframe again to remind ourselves which features we have available
+to us.
+
+    \hypertarget{display-the-structure-of-the-dataframe}{%
+\subparagraph{display the structure of the
+dataframe}\label{display-the-structure-of-the-dataframe}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} str\PY{p}{(}titanic\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+'data.frame':	891 obs. of  10 variables:
+ \$ Survived: int  0 1 1 1 0 0 0 0 1 1 {\ldots}
+ \$ Pclass  : int  3 1 3 1 3 3 1 3 3 2 {\ldots}
+ \$ Sex     : Factor w/ 2 levels "female","male": 2 1 1 1 2 2 2 2 1 1 {\ldots}
+ \$ Age     : num  22 38 26 35 35 NA 54 2 27 14 {\ldots}
+ \$ SibSp   : int  1 1 0 1 0 0 0 3 0 1 {\ldots}
+ \$ Parch   : int  0 0 0 0 0 0 0 1 2 0 {\ldots}
+ \$ Ticket  : Factor w/ 681 levels "110152","110413",..: 524 597 670 50 473 276 86 396 345 133 {\ldots}
+ \$ Fare    : num  7.25 71.28 7.92 53.1 8.05 {\ldots}
+ \$ Cabin   : Factor w/ 148 levels "","A10","A14",..: 1 83 1 57 1 1 131 1 1 1 {\ldots}
+ \$ Embarked: Factor w/ 4 levels "","C","Q","S": 4 2 4 4 4 3 4 4 4 2 {\ldots}
+
+    \end{Verbatim}
+
+    First, we look at the proportions of \texttt{Pclass} and
+\texttt{Survived}. There are three different ways we can look at a
+proportion table.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  The values of each combination as a proportion of the whole
+\item
+  The values in each row as a proportion of that row
+\item
+  The values in each column as a proportion of that column
+\end{enumerate}
+
+    \hypertarget{whole-proportions-of-pclass-versus-survived}{%
+\subparagraph{\texorpdfstring{whole proportions of \texttt{Pclass}
+versus
+\texttt{Survived}}{whole proportions of Pclass versus Survived}}\label{whole-proportions-of-pclass-versus-survived}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{k+kp}{prop.table}\PY{p}{(}\PY{k+kp}{table}\PY{p}{(}titanic\PY{o}{\PYZdl{}}Pclass\PY{p}{,} titanic\PY{o}{\PYZdl{}}Survived\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+   
+             0          1
+  1 0.08978676 0.15263749
+  2 0.10886644 0.09764310
+  3 0.41750842 0.13355780
+    \end{verbatim}
+
+    
+    \hypertarget{proportions-of-pclass-versus-survived-by-row}{%
+\subparagraph{\texorpdfstring{proportions of \texttt{Pclass} versus
+\texttt{Survived} by
+row}{proportions of Pclass versus Survived by row}}\label{proportions-of-pclass-versus-survived-by-row}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{k+kp}{prop.table}\PY{p}{(}\PY{k+kp}{table}\PY{p}{(}titanic\PY{o}{\PYZdl{}}Pclass\PY{p}{,} titanic\PY{o}{\PYZdl{}}Survived\PY{p}{)}\PY{p}{,} \PY{l+m}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+   
+            0         1
+  1 0.3703704 0.6296296
+  2 0.5271739 0.4728261
+  3 0.7576375 0.2423625
+    \end{verbatim}
+
+    
+    \hypertarget{proportions-of-pclass-versus-survived-by-column}{%
+\subparagraph{\texorpdfstring{proportions of \texttt{Pclass} versus
+\texttt{Survived} by
+column}{proportions of Pclass versus Survived by column}}\label{proportions-of-pclass-versus-survived-by-column}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{k+kp}{prop.table}\PY{p}{(}\PY{k+kp}{table}\PY{p}{(}titanic\PY{o}{\PYZdl{}}Pclass\PY{p}{,} titanic\PY{o}{\PYZdl{}}Survived\PY{p}{)}\PY{p}{,} \PY{l+m}{2}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+   
+            0         1
+  1 0.1457195 0.3976608
+  2 0.1766849 0.2543860
+  3 0.6775956 0.3479532
+    \end{verbatim}
+
+    
+    \hypertarget{whole-proportions-of-sex-versus-survived}{%
+\subparagraph{\texorpdfstring{whole proportions of \texttt{Sex} versus
+\texttt{Survived}}{whole proportions of Sex versus Survived}}\label{whole-proportions-of-sex-versus-survived}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{k+kp}{prop.table}\PY{p}{(}\PY{k+kp}{table}\PY{p}{(}titanic\PY{o}{\PYZdl{}}Sex\PY{p}{,} titanic\PY{o}{\PYZdl{}}Survived\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+        
+                  0          1
+  female 0.09090909 0.26150393
+  male   0.52525253 0.12233446
+    \end{verbatim}
+
+    
+    \hypertarget{proportions-of-sex-versus-survived-by-row}{%
+\subparagraph{\texorpdfstring{proportions of \texttt{Sex} versus
+\texttt{Survived} by
+row}{proportions of Sex versus Survived by row}}\label{proportions-of-sex-versus-survived-by-row}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{k+kp}{prop.table}\PY{p}{(}\PY{k+kp}{table}\PY{p}{(}titanic\PY{o}{\PYZdl{}}Sex\PY{p}{,} titanic\PY{o}{\PYZdl{}}Survived\PY{p}{)}\PY{p}{,} \PY{l+m}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+        
+                 0         1
+  female 0.2579618 0.7420382
+  male   0.8110919 0.1889081
+    \end{verbatim}
+
+    
+    \hypertarget{proportions-of-sex-versus-survived-by-column}{%
+\subparagraph{\texorpdfstring{proportions of \texttt{Sex} versus
+\texttt{Survived} by
+column}{proportions of Sex versus Survived by column}}\label{proportions-of-sex-versus-survived-by-column}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{k+kp}{prop.table}\PY{p}{(}\PY{k+kp}{table}\PY{p}{(}titanic\PY{o}{\PYZdl{}}Sex\PY{p}{,} titanic\PY{o}{\PYZdl{}}Survived\PY{p}{)}\PY{p}{,} \PY{l+m}{2}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+        
+                 0         1
+  female 0.1475410 0.6812865
+  male   0.8524590 0.3187135
+    \end{verbatim}
+
+    
+    \hypertarget{analyze-proportion-tables}{%
+\paragraph{Analyze Proportion Tables}\label{analyze-proportion-tables}}
+
+Using the results obtained about prepare an analysis of how these two
+features can be used to predict whether or not someone survived the
+sinking of the Titanic.
+
+    Using this result, we can perform a prediction by placing predictions
+based on the proportions in the table. For example, the prediction
+should have 14.75410\% of the sample of women who didn't survive.
+
+    \hypertarget{targeted-model-improvement}{%
+\subsubsection{Targeted Model
+Improvement}\label{targeted-model-improvement}}
+
+We saw that randomly selecting values to be replaced by one did not
+improve our model. What if we use some more intelligent way to select
+values that should be replaced by a one in our vector of predictions? We
+just looked at two features and identified some patterns that showed it
+would be more likely to have survived the sinking of the ship. Based
+upon this work we might decide that it would be a better model to
+replace the prediction for all female passengers with a 1. We can do
+that using masks and filters.
+
+    \hypertarget{create-a-mask-of-just-women}{%
+\subparagraph{create a mask of just
+women}\label{create-a-mask-of-just-women}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} women\PYZus{}mask \PY{o}{=} titanic\PY{o}{\PYZdl{}}Sex \PY{o}{==} \PY{l+s}{\PYZsq{}}\PY{l+s}{female\PYZsq{}}
+         women\PYZus{}mask\PY{p}{[}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{10}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{enumerate*}
+\item FALSE
+\item TRUE
+\item TRUE
+\item TRUE
+\item FALSE
+\item FALSE
+\item FALSE
+\item FALSE
+\item TRUE
+\item TRUE
+\end{enumerate*}
+
+
+    
+    \hypertarget{duplicate-and-filter-to-create-a-model-women_survived}{%
+\subparagraph{\texorpdfstring{duplicate and filter to create a model,
+\texttt{women\_survived}}{duplicate and filter to create a model, women\_survived}}\label{duplicate-and-filter-to-create-a-model-women_survived}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} women\PYZus{}survived \PY{o}{=} \PY{k+kp}{rep}\PY{p}{(}no\PYZus{}survivors\PY{p}{)}
+         women\PYZus{}survived\PY{p}{[}women\PYZus{}mask\PY{p}{]} \PY{o}{=} \PY{l+m}{1}
+\end{Verbatim}
+
+
+    \hypertarget{assess-accuracy-of-model-women_survived}{%
+\subparagraph{\texorpdfstring{assess accuracy of model,
+\texttt{women\_survived}}{assess accuracy of model, women\_survived}}\label{assess-accuracy-of-model-women_survived}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} accuracy\PY{p}{(}titanic\PY{o}{\PYZdl{}}Survived\PY{p}{,} women\PYZus{}survived\PY{p}{)}
+\end{Verbatim}
+
+
+    0.78675645342312
+
+    
+    \hypertarget{explaining-creation-of-prediction-vector}{%
+\paragraph{Explaining Creation Of Prediction
+Vector}\label{explaining-creation-of-prediction-vector}}
+
+Explain in your own words the process by which the prediction vector,
+\texttt{women\_survived}:
+
+    \texttt{women\_survived} is a naive prediction vector in which is
+initialized by using the no\_survivors vector (which is a vector of
+zeroes) to serve as a baseline. \texttt{women\_mask} is then used to
+change the female passengers' Survived value to 1, which results in all
+women having survived according to this new vector.
+
+    \hypertarget{can-another-feature-help}{%
+\subsubsection{Can Another Feature
+Help?}\label{can-another-feature-help}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{k+kp}{prop.table}\PY{p}{(}\PY{k+kp}{table}\PY{p}{(}titanic\PY{o}{\PYZdl{}}Survived\PY{p}{,} titanic\PY{o}{\PYZdl{}}Pclass\PY{p}{,} titanic\PY{o}{\PYZdl{}}Sex\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+, ,  = female
+
+   
+              1           2           3
+  0 0.003367003 0.006734007 0.080808081
+  1 0.102132435 0.078563412 0.080808081
+
+, ,  = male
+
+   
+              1           2           3
+  0 0.086419753 0.102132435 0.336700337
+  1 0.050505051 0.019079686 0.052749719
+
+    \end{verbatim}
+
+    
+    \hypertarget{create-a-mask-of-just-first-class}{%
+\subparagraph{create a mask of just first
+class}\label{create-a-mask-of-just-first-class}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} first\PYZus{}class\PYZus{}mask \PY{o}{=} titanic\PY{o}{\PYZdl{}}Pclass \PY{o}{==} \PY{l+m}{1}
+         first\PYZus{}class\PYZus{}mask\PY{p}{[}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{10}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{enumerate*}
+\item FALSE
+\item TRUE
+\item FALSE
+\item TRUE
+\item FALSE
+\item FALSE
+\item TRUE
+\item FALSE
+\item FALSE
+\item FALSE
+\end{enumerate*}
+
+
+    
+    \hypertarget{duplicate-and-filter-to-create-a-model-women_and_first_class_survived}{%
+\subparagraph{\texorpdfstring{duplicate and filter to create a model,
+\texttt{women\_and\_first\_class\_survived}}{duplicate and filter to create a model, women\_and\_first\_class\_survived}}\label{duplicate-and-filter-to-create-a-model-women_and_first_class_survived}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} women\PYZus{}and\PYZus{}first\PYZus{}class\PYZus{}survived \PY{o}{=} \PY{k+kp}{rep}\PY{p}{(}women\PYZus{}survived\PY{p}{)}
+         women\PYZus{}and\PYZus{}first\PYZus{}class\PYZus{}survived\PY{p}{[}first\PYZus{}class\PYZus{}mask\PY{p}{]} \PY{o}{=} \PY{l+m}{1}
+\end{Verbatim}
+
+
+    \hypertarget{assess-accuracy-of-model-women_and_first_class_survived}{%
+\subparagraph{\texorpdfstring{assess accuracy of model,
+\texttt{women\_and\_first\_class\_survived}}{assess accuracy of model, women\_and\_first\_class\_survived}}\label{assess-accuracy-of-model-women_and_first_class_survived}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} accuracy\PY{p}{(}titanic\PY{o}{\PYZdl{}}Survived\PY{p}{,} women\PYZus{}and\PYZus{}first\PYZus{}class\PYZus{}survived\PY{p}{)}
+\end{Verbatim}
+
+
+    0.750841750841751
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} scores \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}accuracy\PY{p}{(}titanic\PY{o}{\PYZdl{}}Survived\PY{p}{,} no\PYZus{}survivors\PY{p}{)}\PY{p}{,}
+                    accuracy\PY{p}{(}titanic\PY{o}{\PYZdl{}}Survived\PY{p}{,} random\PYZus{}model\PY{p}{)}\PY{p}{,}
+                    accuracy\PY{p}{(}titanic\PY{o}{\PYZdl{}}Survived\PY{p}{,} women\PYZus{}survived\PY{p}{)}\PY{p}{,}
+                    accuracy\PY{p}{(}titanic\PY{o}{\PYZdl{}}Survived\PY{p}{,} women\PYZus{}and\PYZus{}first\PYZus{}class\PYZus{}survived\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{progress-report}{%
+\subsubsection{Progress Report}\label{progress-report}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} barplot\PY{p}{(}scores\PY{p}{,} xlab \PY{o}{=} \PY{l+s}{\PYZsq{}}\PY{l+s}{model\PYZsq{}}\PY{p}{,} 
+                 names.arg \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{none\PYZsq{}}\PY{p}{,}\PY{l+s}{\PYZsq{}}\PY{l+s}{rand\PYZsq{}}\PY{p}{,}\PY{l+s}{\PYZsq{}}\PY{l+s}{women\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{women+1stclass\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         abline\PY{p}{(}h \PY{o}{=} \PY{k+kp}{max}\PY{p}{(}scores\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_135_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{age}{%
+\subsubsection{Age}\label{age}}
+
+Age is a numerical feature.
+
+Age has missing values.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} hist\PY{p}{(}titanic\PY{o}{\PYZdl{}}Age\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_137_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} missing\PYZus{}age\PYZus{}values\PYZus{}mask \PY{o}{=} \PY{k+kp}{is.na}\PY{p}{(}titanic\PY{o}{\PYZdl{}}Age\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}51}]:} titanic\PY{o}{\PYZdl{}}Survived\PY{p}{[}missing\PYZus{}age\PYZus{}values\PYZus{}mask\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{enumerate*}
+\item 0
+\item 1
+\item 1
+\item 0
+\item 1
+\item 0
+\item 1
+\item 1
+\item 1
+\item 0
+\item 0
+\item 0
+\item 1
+\item 0
+\item 1
+\item 0
+\item 1
+\item 0
+\item 0
+\item 1
+\item 0
+\item 0
+\item 0
+\item 1
+\item 1
+\item 0
+\item 0
+\item 1
+\item 0
+\item 0
+\item 0
+\item 0
+\item 1
+\item 0
+\item 0
+\item 0
+\item 0
+\item 0
+\item 1
+\item 0
+\item 1
+\item 0
+\item 0
+\item 0
+\item 0
+\item 0
+\item 0
+\item 1
+\item 0
+\item 1
+\item 0
+\item 0
+\item 0
+\item 1
+\item 0
+\item 0
+\item 0
+\item 1
+\item 1
+\item 1
+\item 1
+\item 0
+\item 1
+\item 0
+\item 1
+\item 1
+\item 0
+\item 1
+\item 0
+\item 0
+\item 1
+\item 1
+\item 0
+\item 1
+\item 1
+\item 1
+\item 0
+\item 0
+\item 0
+\item 0
+\item 0
+\item 0
+\item 0
+\item 0
+\item 0
+\item 0
+\item 1
+\item 1
+\item 0
+\item 0
+\item 1
+\item 0
+\item 0
+\item 0
+\item 0
+\item 0
+\item 0
+\item 0
+\item 0
+\item 0
+\item 0
+\item 0
+\item 0
+\item 1
+\item 0
+\item 0
+\item 0
+\item 0
+\item 0
+\item 0
+\item 1
+\item 0
+\item 1
+\item 0
+\item 0
+\item 0
+\item 0
+\item 0
+\item 0
+\item 1
+\item 0
+\item 0
+\item 0
+\item 0
+\item 1
+\item 0
+\item 0
+\item 0
+\item 0
+\item 1
+\item 0
+\item 0
+\item 0
+\item 0
+\item 1
+\item 0
+\item 0
+\item 1
+\item 0
+\item 0
+\item 1
+\item 0
+\item 0
+\item 1
+\item 1
+\item 1
+\item 0
+\item 0
+\item 1
+\item 0
+\item 0
+\item 0
+\item 1
+\item 0
+\item 0
+\item 0
+\item 0
+\item 0
+\item 0
+\item 0
+\item 0
+\item 0
+\item 0
+\item 0
+\item 0
+\item 0
+\item 1
+\item 0
+\item 0
+\item 1
+\item 0
+\item 1
+\item 0
+\item 0
+\item 0
+\item 0
+\item 0
+\end{enumerate*}
+
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}52}]:} survived\PYZus{}mask \PY{o}{=} \PY{k+kp}{as.logical}\PY{p}{(}titanic\PY{o}{\PYZdl{}}Survived\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}53}]:} h1 \PY{o}{=} hist\PY{p}{(}titanic\PY{o}{\PYZdl{}}Age\PY{p}{[}survived\PYZus{}mask\PY{p}{]}\PY{p}{,} col\PY{o}{=}rgb\PY{p}{(}\PY{l+m}{0}\PY{p}{,}\PY{l+m}{0}\PY{p}{,}\PY{l+m}{1}\PY{p}{,}\PY{l+m}{1}\PY{o}{/}\PY{l+m}{4}\PY{p}{)}\PY{p}{,} 
+                   freq \PY{o}{=} \PY{n+nb+bp}{F}\PY{p}{,} breaks \PY{o}{=} \PY{l+m}{30}\PY{p}{,} ylim \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}\PY{l+m}{0}\PY{p}{,}\PY{l+m}{0.04}\PY{p}{)}\PY{p}{,}
+                   main\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{Distribution Plots of Age \PYZhy{} Survived\PYZsq{}}\PY{p}{)}
+         h2 \PY{o}{=} hist\PY{p}{(}titanic\PY{o}{\PYZdl{}}Age\PY{p}{[}\PY{o}{\PYZhy{}}survived\PYZus{}mask\PY{p}{]}\PY{p}{,} col\PY{o}{=}rgb\PY{p}{(}\PY{l+m}{1}\PY{p}{,}\PY{l+m}{0}\PY{p}{,}\PY{l+m}{0}\PY{p}{,}\PY{l+m}{1}\PY{o}{/}\PY{l+m}{4}\PY{p}{)}\PY{p}{,} 
+                   freq \PY{o}{=} \PY{n+nb+bp}{F}\PY{p}{,} breaks \PY{o}{=} \PY{l+m}{30}\PY{p}{,} ylim \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}\PY{l+m}{0}\PY{p}{,}\PY{l+m}{0.04}\PY{p}{)}\PY{p}{,}
+                   main \PY{o}{=} \PY{l+s}{\PYZsq{}}\PY{l+s}{Distribution Plots of Age \PYZhy{} Did Not Survive\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_141_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_141_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{create-a-mask-of-just-children}{%
+\subparagraph{create a mask of just
+children}\label{create-a-mask-of-just-children}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}54}]:} children\PYZus{}mask \PY{o}{=} titanic\PY{o}{\PYZdl{}}Age \PY{o}{\PYZlt{}} \PY{l+m}{10}
+\end{Verbatim}
+
+
+    \hypertarget{duplicate-and-filter-to-create-a-model-women_survived}{%
+\subparagraph{\texorpdfstring{duplicate and filter to create a model,
+\texttt{women\_survived}}{duplicate and filter to create a model, women\_survived}}\label{duplicate-and-filter-to-create-a-model-women_survived}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}55}]:} women\PYZus{}and\PYZus{}children\PYZus{}survived \PY{o}{=} \PY{k+kp}{rep}\PY{p}{(}women\PYZus{}survived\PY{p}{)}
+         women\PYZus{}and\PYZus{}children\PYZus{}survived\PY{p}{[}children\PYZus{}mask\PY{p}{]} \PY{o}{=} \PY{l+m}{1}
+\end{Verbatim}
+
+
+    \hypertarget{assess-accuracy-of-model-women_survived}{%
+\subparagraph{\texorpdfstring{assess accuracy of model,
+\texttt{women\_survived}}{assess accuracy of model, women\_survived}}\label{assess-accuracy-of-model-women_survived}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}56}]:} accuracy\PY{p}{(}titanic\PY{o}{\PYZdl{}}Survived\PY{p}{,} women\PYZus{}and\PYZus{}children\PYZus{}survived\PY{p}{)}
+\end{Verbatim}
+
+
+    0.793490460157127
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}57}]:} scores \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}accuracy\PY{p}{(}titanic\PY{o}{\PYZdl{}}Survived\PY{p}{,} no\PYZus{}survivors\PY{p}{)}\PY{p}{,}
+                    accuracy\PY{p}{(}titanic\PY{o}{\PYZdl{}}Survived\PY{p}{,} random\PYZus{}model\PY{p}{)}\PY{p}{,}
+                    accuracy\PY{p}{(}titanic\PY{o}{\PYZdl{}}Survived\PY{p}{,} women\PYZus{}survived\PY{p}{)}\PY{p}{,}
+                    accuracy\PY{p}{(}titanic\PY{o}{\PYZdl{}}Survived\PY{p}{,} women\PYZus{}and\PYZus{}first\PYZus{}class\PYZus{}survived\PY{p}{)}\PY{p}{,}
+                    accuracy\PY{p}{(}titanic\PY{o}{\PYZdl{}}Survived\PY{p}{,} women\PYZus{}and\PYZus{}children\PYZus{}survived\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{progress-report}{%
+\subsubsection{Progress Report}\label{progress-report}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}59}]:} barplot\PY{p}{(}scores\PY{p}{,} xlab \PY{o}{=} \PY{l+s}{\PYZsq{}}\PY{l+s}{model\PYZsq{}}\PY{p}{,} 
+                 names.arg \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{none\PYZsq{}}\PY{p}{,}\PY{l+s}{\PYZsq{}}\PY{l+s}{rand\PYZsq{}}\PY{p}{,}\PY{l+s}{\PYZsq{}}\PY{l+s}{women\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{women+1stclass\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{women+children\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         abline\PY{p}{(}h \PY{o}{=} \PY{k+kp}{max}\PY{p}{(}scores\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_150_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}60}]:} child\PYZus{}survival\PYZus{}by\PYZus{}age \PY{o}{=} \PY{k+kr}{function} \PY{p}{(}age\PY{p}{)} \PY{p}{\PYZob{}}
+             children\PYZus{}mask \PY{o}{=} titanic\PY{o}{\PYZdl{}}Age \PY{o}{\PYZlt{}} age
+         
+             women\PYZus{}and\PYZus{}children\PYZus{}survived \PY{o}{=} \PY{k+kp}{rep}\PY{p}{(}women\PYZus{}survived\PY{p}{)}
+             women\PYZus{}and\PYZus{}children\PYZus{}survived\PY{p}{[}children\PYZus{}mask\PY{p}{]} \PY{o}{=} \PY{l+m}{1}
+         
+             \PY{k+kr}{return}\PY{p}{(}accuracy\PY{p}{(}titanic\PY{o}{\PYZdl{}}Survived\PY{p}{,} women\PYZus{}and\PYZus{}children\PYZus{}survived\PY{p}{)}\PY{p}{)}
+         \PY{p}{\PYZcb{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}61}]:} ages \PY{o}{=} \PY{l+m}{1}\PY{o}{:}\PY{l+m}{20}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}63}]:} plot\PY{p}{(}\PY{k+kp}{sapply}\PY{p}{(}ages\PY{p}{,} child\PYZus{}survival\PYZus{}by\PYZus{}age\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_153_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{create-a-mask-of-just-children}{%
+\subparagraph{create a mask of just
+children}\label{create-a-mask-of-just-children}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}64}]:} children\PYZus{}mask \PY{o}{=} titanic\PY{o}{\PYZdl{}}Age \PY{o}{\PYZlt{}} \PY{l+m}{7}
+\end{Verbatim}
+
+
+    \hypertarget{duplicate-and-filter-to-create-a-model-women_survived}{%
+\subparagraph{\texorpdfstring{duplicate and filter to create a model,
+\texttt{women\_survived}}{duplicate and filter to create a model, women\_survived}}\label{duplicate-and-filter-to-create-a-model-women_survived}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}65}]:} women\PYZus{}and\PYZus{}children\PYZus{}survived \PY{o}{=} \PY{k+kp}{rep}\PY{p}{(}women\PYZus{}survived\PY{p}{)}
+         women\PYZus{}and\PYZus{}children\PYZus{}survived\PY{p}{[}children\PYZus{}mask\PY{p}{]} \PY{o}{=} \PY{l+m}{1}
+\end{Verbatim}
+
+
+    \hypertarget{assess-accuracy-of-model-women_survived}{%
+\subparagraph{\texorpdfstring{assess accuracy of model,
+\texttt{women\_survived}}{assess accuracy of model, women\_survived}}\label{assess-accuracy-of-model-women_survived}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}66}]:} accuracy\PY{p}{(}titanic\PY{o}{\PYZdl{}}Survived\PY{p}{,} women\PYZus{}and\PYZus{}children\PYZus{}survived\PY{p}{)}
+\end{Verbatim}
+
+
+    0.795735129068462
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}67}]:} scores \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}accuracy\PY{p}{(}titanic\PY{o}{\PYZdl{}}Survived\PY{p}{,} no\PYZus{}survivors\PY{p}{)}\PY{p}{,}
+                    accuracy\PY{p}{(}titanic\PY{o}{\PYZdl{}}Survived\PY{p}{,} random\PYZus{}model\PY{p}{)}\PY{p}{,}
+                    accuracy\PY{p}{(}titanic\PY{o}{\PYZdl{}}Survived\PY{p}{,} women\PYZus{}survived\PY{p}{)}\PY{p}{,}
+                    accuracy\PY{p}{(}titanic\PY{o}{\PYZdl{}}Survived\PY{p}{,} women\PYZus{}and\PYZus{}first\PYZus{}class\PYZus{}survived\PY{p}{)}\PY{p}{,}
+                    accuracy\PY{p}{(}titanic\PY{o}{\PYZdl{}}Survived\PY{p}{,} women\PYZus{}and\PYZus{}children\PYZus{}survived\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{progress-report}{%
+\subsubsection{Progress Report}\label{progress-report}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}68}]:} barplot\PY{p}{(}scores\PY{p}{,} xlab \PY{o}{=} \PY{l+s}{\PYZsq{}}\PY{l+s}{model\PYZsq{}}\PY{p}{,} 
+                 names.arg \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{none\PYZsq{}}\PY{p}{,}\PY{l+s}{\PYZsq{}}\PY{l+s}{rand\PYZsq{}}\PY{p}{,}\PY{l+s}{\PYZsq{}}\PY{l+s}{women\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{women+1stclass\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{women+children\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         abline\PY{p}{(}h \PY{o}{=} \PY{k+kp}{max}\PY{p}{(}scores\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_162_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

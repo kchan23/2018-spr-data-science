@@ -1,0 +1,718 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Car\_Acceptability}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} car \PY{o}{=} read.csv\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{car.data.txt\PYZsq{}}\PY{p}{,} header \PY{o}{=} \PY{n+nb+bp}{F}\PY{p}{)}
+         \PY{k+kp}{colnames}\PY{p}{(}car\PY{p}{)} \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{buying\PYZus{}price\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{maint\PYZus{}price\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{no\PYZus{}doors\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{capacity\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{lug\PYZus{}boot\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{safety\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{acc\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    Why is it a best practice to run the next cell right after loading data?
+
+     Checking out the dimensions of the data allows you to see whether the
+data is given to you as a vector, matrix, or array. Although data
+frames/matrices will be most common when pulling data sets, it is good
+to check in order to understand how the data is presented to you.
+
+In the context of a dataframe, the dim gives you the dimensions in (row,
+column) format, which usually corresponds to (\#observations,
+\#features).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{k+kp}{dim}\PY{p}{(}car\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{enumerate*}
+\item 1728
+\item 7
+\end{enumerate*}
+
+
+    
+    Why are \texttt{no\_doors} and \texttt{capacity} factors and not
+integers?
+
+    \texttt{no\_doors} and \texttt{capacity} are factors because they are
+defined in a categorical context where there is a ``more'' term that
+encapsules anything above a certain number for their respective
+features. Also notice that they only count common values of each feature
+signifying that each observation is going to fall under a category.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} str\PY{p}{(}car\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+'data.frame':	1728 obs. of  7 variables:
+ \$ buying\_price: Factor w/ 4 levels "high","low","med",..: 4 4 4 4 4 4 4 4 4 4 {\ldots}
+ \$ maint\_price : Factor w/ 4 levels "high","low","med",..: 4 4 4 4 4 4 4 4 4 4 {\ldots}
+ \$ no\_doors    : Factor w/ 4 levels "2","3","4","5more": 1 1 1 1 1 1 1 1 1 1 {\ldots}
+ \$ capacity    : Factor w/ 3 levels "2","4","more": 1 1 1 1 1 1 1 1 1 2 {\ldots}
+ \$ lug\_boot    : Factor w/ 3 levels "big","med","small": 3 3 3 2 2 2 1 1 1 3 {\ldots}
+ \$ safety      : Factor w/ 3 levels "high","low","med": 2 3 1 2 3 1 2 3 1 2 {\ldots}
+ \$ acc         : Factor w/ 4 levels "acc","good","unacc",..: 3 3 3 3 3 3 3 3 3 3 {\ldots}
+
+    \end{Verbatim}
+
+    What do the commands in the next cell do? Why are they necessary?
+
+    \texttt{library(caret)} loads the caret package, which is necessary for
+functions used later in the notebook. One such function used later is
+the \texttt{createDataPartition} function.
+
+\texttt{set.seed} is used so that others can replicate the results from
+your work via a pseudo random number generator.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{k+kn}{library}\PY{p}{(}caret\PY{p}{)}
+         \PY{k+kp}{set.seed}\PY{p}{(}\PY{l+m}{10}\PY{p}{)}
+\end{Verbatim}
+
+
+    What does the next cell show? \textbf{Don't interpret the results. Tell
+me what the results are.}
+
+    The next cell shows that for the \texttt{acc} feature in the dataset,
+there are: - 384 observations under acc - 69 observations under good -
+1210 observations under unacc - 65 observations under vgood
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{k+kp}{table}\PY{p}{(}car\PY{o}{\PYZdl{}}acc\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+
+  acc  good unacc vgood 
+  384    69  1210    65 
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{k+kp}{prop.table}\PY{p}{(}\PY{k+kp}{table}\PY{p}{(}car\PY{o}{\PYZdl{}}acc\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+
+       acc       good      unacc      vgood 
+0.22222222 0.03993056 0.70023148 0.03761574 
+    \end{verbatim}
+
+    
+    If \texttt{acc} is the target, what kind of a machine learning problem
+is this? What would be a good metric for the problem? Why? What would be
+a good benchmark? Why?
+
+    Since we have a categorical target with known labels, we can identify
+this as a classification problem. We can create a train-test split to
+fit a model and use the mean average error(MAE) between the actual and
+predicted values as a metric.
+
+*Note: Upon further reading, it seems that accuracy may not be the best
+measure due to the fact that the observations are heavily unbalanced.
+Precision or recall may be better depending on whether you want to
+minimize false positives or false negatives.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{k+kn}{library}\PY{p}{(}repr\PY{p}{)}
+         \PY{k+kp}{options}\PY{p}{(}repr.plot.width\PY{o}{=}\PY{l+m}{10}\PY{p}{,} repr.plot.height\PY{o}{=}\PY{l+m}{4}\PY{p}{)}
+         barplot\PY{p}{(}\PY{k+kp}{prop.table}\PY{p}{(}\PY{k+kp}{table}\PY{p}{(}car\PY{o}{\PYZdl{}}acc\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Describe the distribution of the target class.
+
+     \texttt{good} and \texttt{vgood} have very low frequencies whereas
+\texttt{unacc} dwarfs the rest of the categories.
+
+    What does the next cell show?
+
+     The cell below takes the sum of null values in each column. This is
+useful for checking for missing data on each feature.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{k+kp}{colSums}\PY{p}{(}\PY{k+kp}{is.na}\PY{p}{(}car\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{description*}
+\item[buying\textbackslash{}\_price] 0
+\item[maint\textbackslash{}\_price] 0
+\item[no\textbackslash{}\_doors] 0
+\item[capacity] 0
+\item[lug\textbackslash{}\_boot] 0
+\item[safety] 0
+\item[acc] 0
+\end{description*}
+
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} car\PYZus{}numeric\PYZus{}features \PY{o}{=} \PY{k+kp}{Filter}\PY{p}{(}\PY{k+kp}{is.numeric}\PY{p}{,} car\PY{p}{)}
+\end{Verbatim}
+
+
+    What do the commands in the next cell do? Why are they necessary?
+
+     A train-test split is necessary when attempting to do predictions to
+avoid overfitting when you try to evaluate a model with the dataset you
+used to create the model.
+
+\begin{itemize}
+\tightlist
+\item
+  train\_index stores the indices of each observation from the original
+  dataset that has been subsetted as the training set.
+\item
+  training\_data stores the observations by referencing
+  \texttt{train\_index} to specify the training data
+\item
+  test\_data uses syntax from R that subsets the \texttt{car} data frame
+  via dropping rows that are indexed in \texttt{train\_index}
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} train\PYZus{}index \PY{o}{\PYZlt{}\PYZhy{}} createDataPartition\PY{p}{(}car\PY{o}{\PYZdl{}}acc\PY{p}{,}p\PY{o}{=}\PY{l+m}{0.8}\PY{p}{,}\PY{k+kt}{list}\PY{o}{=}\PY{k+kc}{FALSE}\PY{p}{)}
+         training\PYZus{}data \PY{o}{\PYZlt{}\PYZhy{}} car\PY{p}{[}train\PYZus{}index\PY{p}{,}\PY{p}{]}
+         test\PYZus{}data \PY{o}{\PYZlt{}\PYZhy{}} car\PY{p}{[}\PY{o}{\PYZhy{}}train\PYZus{}index\PY{p}{,}\PY{p}{]}
+\end{Verbatim}
+
+
+    Interpret these results. How should these results impact our work?
+
+     The difference in proportions for each category is in the thousandths
+or less, showing that the training and test data are fairly
+representative of the overall data. The results from this split should
+therefore not create much error via sample variance on the train/test
+data.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{k+kp}{prop.table}\PY{p}{(}\PY{k+kp}{table}\PY{p}{(}car\PY{o}{\PYZdl{}}acc\PY{p}{)}\PY{p}{)}
+         \PY{k+kp}{prop.table}\PY{p}{(}\PY{k+kp}{table}\PY{p}{(}training\PYZus{}data\PY{o}{\PYZdl{}}acc\PY{p}{)}\PY{p}{)}
+         \PY{k+kp}{prop.table}\PY{p}{(}\PY{k+kp}{table}\PY{p}{(}test\PYZus{}data\PY{o}{\PYZdl{}}acc\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+
+       acc       good      unacc      vgood 
+0.22222222 0.03993056 0.70023148 0.03761574 
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+
+       acc       good      unacc      vgood 
+0.22254335 0.04046243 0.69942197 0.03757225 
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+
+      acc      good     unacc     vgood 
+0.2209302 0.0377907 0.7034884 0.0377907 
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} prop\PYZus{}all \PY{o}{=} \PY{k+kp}{prop.table}\PY{p}{(}\PY{k+kp}{table}\PY{p}{(}car\PY{o}{\PYZdl{}}acc\PY{p}{)}\PY{p}{)}
+         prop\PYZus{}test \PY{o}{=} \PY{k+kp}{prop.table}\PY{p}{(}\PY{k+kp}{table}\PY{p}{(}test\PYZus{}data\PY{o}{\PYZdl{}}acc\PY{p}{)}\PY{p}{)}
+         prop\PYZus{}train \PY{o}{=} \PY{k+kp}{prop.table}\PY{p}{(}\PY{k+kp}{table}\PY{p}{(}training\PYZus{}data\PY{o}{\PYZdl{}}acc\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{k+kp}{noquote}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{Proportion Difference(Test)\PYZsq{}}\PY{p}{)}
+         prop\PYZus{}all\PY{o}{\PYZhy{}}prop\PYZus{}test
+         \PY{k+kp}{noquote}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{Proportion Difference(Train)\PYZsq{}}\PY{p}{)}
+         prop\PYZus{}all\PY{o}{\PYZhy{}}prop\PYZus{}train
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+[1] Proportion Difference(Test)
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+
+          acc          good         unacc         vgood 
+ 0.0012919897  0.0021398579 -0.0032568906 -0.0001749569 
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+[1] Proportion Difference(Train)
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+
+          acc          good         unacc         vgood 
+-3.211304e-04 -5.318722e-04  8.095162e-04  4.348641e-05 
+    \end{verbatim}
+
+    
+    \hypertarget{eda}{%
+\subsection{EDA}\label{eda}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{k+kn}{attach}\PY{p}{(}training\PYZus{}data\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The following objects are masked from training\_data (pos = 3):
+
+    acc, buying\_price, capacity, lug\_boot, maint\_price, no\_doors,
+    safety
+
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{k+kp}{table}\PY{p}{(}buying\PYZus{}price\PY{p}{)}
+         \PY{k+kp}{prop.table}\PY{p}{(}\PY{k+kp}{table}\PY{p}{(}buying\PYZus{}price\PY{p}{,} acc\PY{p}{)}\PY{p}{,} \PY{l+m}{1}\PY{p}{)}
+         
+         \PY{k+kp}{table}\PY{p}{(}maint\PYZus{}price\PY{p}{)}
+         \PY{k+kp}{prop.table}\PY{p}{(}\PY{k+kp}{table}\PY{p}{(}maint\PYZus{}price\PY{p}{,} acc\PY{p}{)}\PY{p}{,} \PY{l+m}{1}\PY{p}{)}
+         
+         \PY{k+kp}{table}\PY{p}{(}no\PYZus{}doors\PY{p}{)}
+         \PY{k+kp}{prop.table}\PY{p}{(}\PY{k+kp}{table}\PY{p}{(}no\PYZus{}doors\PY{p}{,} acc\PY{p}{)}\PY{p}{,} \PY{l+m}{1}\PY{p}{)}
+         
+         \PY{k+kp}{table}\PY{p}{(}capacity\PY{p}{)}
+         \PY{k+kp}{prop.table}\PY{p}{(}\PY{k+kp}{table}\PY{p}{(}capacity\PY{p}{,} acc\PY{p}{)}\PY{p}{,} \PY{l+m}{1}\PY{p}{)}
+         
+         \PY{k+kp}{table}\PY{p}{(}lug\PYZus{}boot\PY{p}{)}
+         \PY{k+kp}{prop.table}\PY{p}{(}\PY{k+kp}{table}\PY{p}{(}lug\PYZus{}boot\PY{p}{,} acc\PY{p}{)}\PY{p}{,} \PY{l+m}{1}\PY{p}{)}
+         
+         \PY{k+kp}{table}\PY{p}{(}safety\PY{p}{)}
+         \PY{k+kp}{prop.table}\PY{p}{(}\PY{k+kp}{table}\PY{p}{(}safety\PY{p}{,} acc\PY{p}{)}\PY{p}{,} \PY{l+m}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+buying_price
+ high   low   med vhigh 
+  343   347   346   348 
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+            acc
+buying_price        acc       good      unacc      vgood
+       high  0.26239067 0.00000000 0.73760933 0.00000000
+       low   0.20172911 0.11239193 0.59365994 0.09221902
+       med   0.26589595 0.04913295 0.62716763 0.05780347
+       vhigh 0.16091954 0.00000000 0.83908046 0.00000000
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+maint_price
+ high   low   med vhigh 
+  346   352   339   347 
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+           acc
+maint_price        acc       good      unacc      vgood
+      high  0.24277457 0.00000000 0.72543353 0.03179191
+      low   0.21022727 0.10511364 0.62500000 0.05965909
+      med   0.27433628 0.05604720 0.61061947 0.05899705
+      vhigh 0.16426513 0.00000000 0.83573487 0.00000000
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+no_doors
+    2     3     4 5more 
+  345   350   345   344 
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+        acc
+no_doors        acc       good      unacc      vgood
+   2     0.16231884 0.03768116 0.77101449 0.02898551
+   3     0.23714286 0.04000000 0.68857143 0.03428571
+   4     0.25507246 0.04637681 0.65507246 0.04347826
+   5more 0.23546512 0.03779070 0.68313953 0.04360465
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+capacity
+   2    4 more 
+ 470  467  447 
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+        acc
+capacity        acc       good      unacc      vgood
+    2    0.00000000 0.00000000 1.00000000 0.00000000
+    4    0.32334047 0.06638116 0.55674518 0.05353319
+    more 0.35123043 0.05592841 0.53243848 0.06040268
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+lug_boot
+  big   med small 
+  461   465   458 
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+        acc
+lug_boot        acc       good      unacc      vgood
+   big   0.24728850 0.04772234 0.63557484 0.06941432
+   med   0.23655914 0.03870968 0.68172043 0.04301075
+   small 0.18340611 0.03493450 0.78165939 0.00000000
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+safety
+high  low  med 
+ 463  450  471 
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+      acc
+safety        acc       good      unacc      vgood
+  high 0.34557235 0.04967603 0.49244060 0.11231102
+  low  0.00000000 0.00000000 1.00000000 0.00000000
+  med  0.31422505 0.07006369 0.61571125 0.00000000
+    \end{verbatim}
+
+    
+    Which two features will be the strongest indicator of unacceptability?
+Why?
+
+    \texttt{safety} and \texttt{capacity} will be the strongest indicator of
+unacceptability since they each have a factor that fully predicts when a
+car is unnacceptable (low safety, 2-seater)
+
+    \hypertarget{bonus}{%
+\subsection{BONUS}\label{bonus}}
+
+Prepare a vectorized model for acceptability.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
